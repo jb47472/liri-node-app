@@ -101,7 +101,9 @@ function movieThis() {
   var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=trilogy";
   axios.get(queryUrl)
     .then(function (response) {
-      // console.log(response.data.Title);
+      // if (!movieTitle) {
+      //   movieTitle = "Mr. Nobody"
+      //   }
 
       var queryResults =
         "Title:" + response.data.Title + "\n" +
@@ -112,7 +114,7 @@ function movieThis() {
         "Language of Movie:" + response.data.Language + "\n" +
         "Plot:" + response.data.Plot + "\n" +
         "Key Actors:" + response.data.Actors + "\n" 
-
+        
         console.log(chalk.bold.inverse.bgMagenta(queryResults));
 
 
