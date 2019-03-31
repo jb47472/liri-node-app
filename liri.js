@@ -7,6 +7,7 @@ var axios = require("axios");
 var liriFind = process.argv[2];
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
+const chalk = require('chalk');
 
 
 //switches for various commands
@@ -27,12 +28,12 @@ switch (liriFind) {
     doWhatItSays();
     break;
   //Instructions for first time user
-  default: console.log("\n" + "type any command after 'node liri.js': " + "\n" +
+  default: console.log(chalk.bold.bgBlue("\n" + "type any command after 'node liri.js': " + "\n" +
     "concert-this" + "\n" +
     "spotify-this-song 'any song title' " + "\n" +
     "movie-this 'any movie title' " + "\n" +
     "do-what-it-says " + "\n" +
-    "Use quotes for multiword titles!");
+    "Use Quotes for Multiword Titles!"));
 
 };
 
@@ -41,12 +42,21 @@ switch (liriFind) {
 function concertThis() {
   var artists = process.argv[3];
   axios.get("https://rest.bandsintown.com/artists/" + artists + "/events?app_id=codingbootcamp")
-    .then(function (response) {
-      console.log(response.data[0].venue.name);
-      console.log(response.data[0].venue.country);
-      console.log(response.data[0].venue.city);
-      console.log(response.data[0].datetime);
+    .then(function (response, err) {
+      var bandResults = 
+      "Venue:" + response.data[0].venue.name + "\n" +
+      "Country:" + response.data[0].venue.country + "\n" +
+      "City:" + response.data[0].venue.city + "\n" +
+      "Date:" + response.data[0].datetime + "\n"
+      // var datetime = response.data[0].datetime
+      // datetime = moment().format('MM/DD/YYYY');
+      console.log(chalk.bold.inverse.bgBlue(bandResults));
 
+      if (err) {
+        console.log("ERROR, Please Try Again!");
+        return;
+      }
+      
     });
 
 }
@@ -74,7 +84,7 @@ function spotifyThisSong(songName) {
               "Preview URL: " + trackInfo[i].preview_url + "\n" +
               "Album: " + trackInfo[i].album.name + "\n"
 
-            console.log(spotifyResults);
+            console.log(chalk.bold.inverse.bgWhite(spotifyResults));
             console.log(' ');
           };
         };
@@ -95,15 +105,15 @@ function movieThis() {
 
       var queryResults =
         "Title:" + response.data.Title + "\n" +
-        "Year" + response.data.Year + "\n" +
-        "IMBD Rating" + response.data.Ratings[0].Value + "\n" +
+        "Year:" + response.data.Year + "\n" +
+        "IMBD Rating:" + response.data.Ratings[0].Value + "\n" +
         "Rotten Tomatoes" + response.data.Ratings[1].Value + "\n" +
-        "Country of Production" + response.data.Country + "\n" +
-        "Language of Movia" + response.data.Language + "\n" +
-        "Plot" + response.data.Plot + "\n" +
-        "Key Actors" + response.data.Actors + "\n" +
+        "Country of Production:" + response.data.Country + "\n" +
+        "Language of Movie:" + response.data.Language + "\n" +
+        "Plot:" + response.data.Plot + "\n" +
+        "Key Actors:" + response.data.Actors + "\n" 
 
-        console.log(queryResults);
+        console.log(chalk.bold.inverse.bgMagenta(queryResults));
 
 
 
