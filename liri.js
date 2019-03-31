@@ -56,7 +56,7 @@ function concertThis() {
 function spotifyThisSong(songName) {
   var songName = process.argv[3]
   if (!songName) {
-    songName === "The Sign";
+    songName === "I Want it That Way";
   };
   songRequest = songName;
   spotify.search({
