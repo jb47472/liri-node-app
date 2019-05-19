@@ -4,14 +4,14 @@ var fs = require("fs");
 var keys = require("./keys.js");
 var moment = require("moment");
 var axios = require("axios");
-var liriFind = process.argv[2];
+var command = process.argv[2];
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 const chalk = require('chalk');
 
 
 //switches for various commands
-switch (liriFind) {
+switch (command) {
   case "concert-this":
     concertThis();
     break;
@@ -48,8 +48,7 @@ function concertThis() {
       "Country:" + response.data[0].venue.country + "\n" +
       "City:" + response.data[0].venue.city + "\n" +
       "Date:" + response.data[0].datetime + "\n"
-      // var datetime = response.data[0].datetime
-      // datetime = moment().format('MM/DD/YYYY');
+      
       console.log(chalk.bold.inverse.bgBlue(bandResults));
 
       if (err) {
